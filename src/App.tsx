@@ -13,8 +13,13 @@ export default function App() {
   return (
     <main className="page">
       <header className="header">
-        <h1 className="title">Дела</h1>
         <p className="date">{today}</p>
+        <h1 className="title">
+          Дела
+          <span className="title__dot" aria-hidden="true">
+            .
+          </span>
+        </h1>
       </header>
       <TodoForm onAdd={add} />
       <TodoList todos={todos} onToggle={toggle} onRemove={remove} />

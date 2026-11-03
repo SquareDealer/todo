@@ -68,7 +68,7 @@ export function TodoItem({ todo, index, onToggle, onRemove }: Props) {
         aria-label={`Отметить «${todo.text}»`}
       />
       <label className="text" htmlFor={`todo-${todo.id}`}>
-        {todo.text}
+        <span className="text__ink">{todo.text}</span>
       </label>
       <button
         className="remove"
