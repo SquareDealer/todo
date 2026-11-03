@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Todo } from '../types'
+import { removeButtonId } from './ids'
 
 const LEAVE_MS = 250
 
@@ -72,6 +73,7 @@ export function TodoItem({ todo, index, onToggle, onRemove }: Props) {
       </label>
       <button
         className="remove"
+        id={removeButtonId(todo.id)}
         type="button"
         onClick={startRemove}
         aria-label={`Удалить «${todo.text}»`}

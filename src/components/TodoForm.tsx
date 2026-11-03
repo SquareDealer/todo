@@ -1,5 +1,6 @@
 import { useRef, useState, type FormEvent } from 'react'
 import { MAX_TODO_LENGTH } from '../useTodos'
+import { NEW_TODO_INPUT_ID } from './ids'
 
 type Props = {
   onAdd: (text: string) => boolean
@@ -17,12 +18,12 @@ export function TodoForm({ onAdd }: Props) {
 
   return (
     <form className="form" onSubmit={handleSubmit}>
-      <label className="visually-hidden" htmlFor="new-todo">
+      <label className="visually-hidden" htmlFor={NEW_TODO_INPUT_ID}>
         Новая задача
       </label>
       <input
         ref={inputRef}
-        id="new-todo"
+        id={NEW_TODO_INPUT_ID}
         className="input"
         type="text"
         value={text}

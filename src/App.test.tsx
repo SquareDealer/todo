@@ -120,6 +120,33 @@ describe('App', () => {
     expect(screen.getByText('Всё сделано')).toBeInTheDocument()
   })
 
+  it('moves focus to the next task after deleting one', async () => {
+    render(<App />)
+    await addTodo('a')
+    await addTodo('b')
+    await userEvent.click(screen.getByRole('button', { name: 'Удалить «b»' }))
+    await waitFor(() => expect(screen.queryByText('b')).not.toBeInTheDocument())
+    expect(screen.getByRole('button', { name: 'Удалить «a»' })).toHaveFocus()
+  })
+
+  it('moves focus to the input after deleting the last task', async () => {
+    render(<App />)
+    await addTodo('a')
+    await userEvent.click(screen.getByRole('button', { name: 'Удалить «a»' }))
+    await waitFor(() => expect(screen.queryByText('a')).not.toBeInTheDocument())
+    expect(input()).toHaveFocus()
+  })
+
+  it('scrolls the new task into view after adding', async () => {
+    const scroll = vi.fn()
+    Element.prototype.scrollIntoView = scroll
+    render(<App />)
+    await addTodo('a')
+    await addTodo('b')
+    expect(scroll).toHaveBeenCalledTimes(2)
+    expect(scroll.mock.contexts[1]).toBe(items()[0])
+  })
+
   it('numbers items 01, 02', async () => {
     render(<App />)
     await addTodo('a')
